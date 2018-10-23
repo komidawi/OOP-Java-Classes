@@ -1,10 +1,15 @@
 package com.github.komidawi;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.LinkedList;
+import java.util.Properties;
 
-// TODO: write a send method
 
 public class EmailMessage {
     private String from;    // required
@@ -28,10 +33,43 @@ public class EmailMessage {
         this.bcc = bcc;
     }
 
-    public void TEST_IT() {
-        System.out.println("from="+from+"\nto="+to.toString()+"\nsubject="+subject
-            +"\ncontent="+content+"\nmimeType="+mimeType+"\ncc"+cc.toString()
-            +"\nbcc="+bcc.toString());
+    public void send() {
+        // 1. Creating javax.mail.Session object
+        String password = "EmailBuilder1";
+        String host = "smtp.yandex.com";
+        Properties properties = new Properties();
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.user", from);
+        properties.put("mail.smtp.password", password);
+        properties.put("mail.smtp.port", 465);
+        properties.put("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(properties);
+        session.setDebug(true);
+
+        /* 2. Creating javax.mail.internet.MimeMessage object, we have to set different properties
+           in this object such as recipient email address, Email Subject, Reply-To email, email body, attachments etc. */
+        Message message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(from));
+            message.setSubject(subject);
+            message.setText(content);
+
+            for (String recipient : to) {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            }
+
+            //3. Using javax.mail.Transport to send the email message.
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, password);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
 
