@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"RoadPillarTools","l":"calculateDistance(int, int, int)"},{"p":"<Unnamed>","c":"RoadPillarTools","l":"RoadPillarTools()"}]
