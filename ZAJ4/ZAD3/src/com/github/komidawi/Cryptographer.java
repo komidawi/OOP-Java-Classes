@@ -1,55 +1,127 @@
 package com.github.komidawi;
 
-import java.io.File;
+import java.io.*;
 import java.util.Scanner;
 
 public class Cryptographer {
 
+    private static String inputFilePath;
+    private static String outputFilePath;
+
     public static void main(String[] args) {
-        // check if exists
-        // String inputFilePath = args[0];
-        // String outputFilePath = args[1];
+
+        if (args != null && args.length >= 2) {
+            inputFilePath = args[0];
+            outputFilePath = args[1];
+        }
 
 
-        /*
-        showInterface();
+        run();
+    }
 
-        Scanner in = new Scanner(System.in);
+    private static void run() {
+        Algorithm chosenAlgorithm = askForAlgorithm();
+        String intention = askForIntention();
+        executeAlgorithm(chosenAlgorithm, intention);
+    }
 
-        System.out.println("What would you like to do?\n" +
-                "1. Cypher" +
-                "2. Decypher");
+    private static Algorithm askForAlgorithm() {
+        Scanner scanner = new Scanner(System.in);
 
-        // TODO: validate user Response
-        int userResponse = in.nextInt();
+        System.out.println("Which algorithm would you like to use?\n" +
+                "1. ROT11\n" +
+                "2. Polibiusz");
+
+        int userResponse = scanner.nextInt();
 
         switch (userResponse) {
             case 1:
-                System.out.println("Which algorithm would you like to use?\n" +
-                        "1. ROT11" +
-                        "2. Polibiusz");
-                break;
+                return new ROT11();
 
             case 2:
+                return new Polibiusz();
 
-                break;
+            default:
+                return null;
         }
-        */
-
-        System.out.println(new ROT11().crypt("abcdefghijklmnopqrstuvwxyz !@#$%^&*() ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        System.out.println(new ROT11().decrypt("lmnopqrstuvwxyzabcdefghijk !@#$%^&*() LMNOPQRSTUVWXYZABCDEFGHIJK"));
-
     }
 
-    private static void showInterface() {
+    private static String askForIntention() {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("What would you like to do?\n" +
+                "1. Crypt a file\n" +
+                "2. Decrypt a file");
+
+        int userResponse = scanner.nextInt();
+
+        switch (userResponse) {
+            case 1:
+                return "crypt";
+
+            case 2:
+                return "decrypt";
+
+            default:
+                return "error";
+        }
     }
 
-    public static void cryptfile(File toEncrypt, File encrypted, Algorithm algorithm) {
-
+    private static void executeAlgorithm(Algorithm chosenAlgorithm, String intention) {
+        if (intention.equals("crypt")) {
+            cryptfile(new File(inputFilePath), new File(outputFilePath), chosenAlgorithm);
+        } else if (intention.equals("decrypt")) {
+            decryptfile(new File(inputFilePath), new File(outputFilePath), chosenAlgorithm);
+        }
     }
 
-    public static void decryptfile(File toDecrypt, File decrypted, Algorithm algorithm) {
+    public static void cryptfile(File source, File target, Algorithm algorithm) {
+        String toBeCrypted = readFile(source);
+        String crypted = algorithm.crypt(toBeCrypted);
+        writeToFile(target, crypted);
+    }
 
+    public static void decryptfile(File source, File target, Algorithm algorithm) {
+        String crypted = readFile(source);
+        String decrypted = algorithm.decrypt(crypted);
+        writeToFile(target, decrypted);
+    }
+
+    private static String readFile(File file) {
+        StringBuilder content = new StringBuilder();
+        String line;
+
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line);
+            }
+
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File to read not found!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Unknown exception.");
+            e.printStackTrace();
+        }
+
+        return content.toString();
+    }
+
+    private static void writeToFile(File file, String content) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.write(content);
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Unknown error.");
+            e.printStackTrace();
+        }
     }
 }
