@@ -1,0 +1,21 @@
+{328}{527}/Na wysokości 600 kilometrów temperatura waha się|/między 126 a -100 stopniami Celsjusza.
+{544}{681}/Dźwięk się nie niesie.|/Nie ma ciśnienia ani tlenu.
+{755}{858}/Życie w kosmosie jest niemożliwe.
+{875}{949}GRAWITACJA
+{954}{1014}.:: GrupaHatak.pl ::.
+{1017}{1081}Tłumaczenie:|rarehare & józek
+{1539}{1674}/Proszę o potwierdzenie, że pierwsza i druga|/część obudowy dysku P1 zostały usunięte.
+{1690}{1846}/- DMA M-1, M-2, M-3 i M-4 zakończone.|/- Przyjąłem, Explorer.
+{1873}{1973}/Dr Stone, tu Houston.|/Lekarzy niepokoją odczyty EKG.
+{1992}{2088}/- Nic mi nie jest, Houston.|/- Lekarze sądzą inaczej, pani doktor.
+{2088}{2177}/- Odczuwa pani nudności?|/- Nie bardziej niż zwykle, Houston.
+{2179}{2215}/Diagnostyka pozytywna.
+{2235}{2306}/Połączenie z kartą komunikacyjną|/gotowe do obioru danych.
+{2340}{2414}/Jeśli to zadziała, kiedy wylądujemy,|/stawiam wszystkim kolejkę.
+{2438}{2474}/Umowa, pani doktor.
+{2474}{2539}/Tylko pamiętaj,|/że Houston preferuje margarity.
+{2589}{2681}/Uruchamiam kartę.|/Potwierdźcie połączenie.
+{2702}{2757}/Brak potwierdzenia.|/Nie odczytujemy żadnych danych.
+{2781}{2844}/Zaczekajcie, Houston,|/zrestartuję kartę.
+{2848}{2884}/Czekamy.
+{2885}{2000}Elo
