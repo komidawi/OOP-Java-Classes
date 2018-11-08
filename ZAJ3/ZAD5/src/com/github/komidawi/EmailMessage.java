@@ -1,9 +1,6 @@
 package com.github.komidawi;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -37,7 +34,7 @@ public class EmailMessage {
         try {
             // 1. Creating javax.mail.Session object
             Properties properties = setupProperties();
-            Session session = Session.getDefaultInstance(properties);
+            Session session = setupSession(properties);
             //session.setDebug(true);
 
             /* 2. Creating javax.mail.internet.MimeMessage object, we have to set different properties
@@ -45,13 +42,7 @@ public class EmailMessage {
             Message emailMessage = prepareEmailMessage(session);
 
             //3. Using javax.mail.Transport to send the email message.
-            Transport transport = session.getTransport("smtp");
-            transport.connect(
-                    session.getProperty("mail.smtp.host"),
-                    session.getProperty("mail.smtp.user"),
-                    session.getProperty("mail.smtp.password"));
-            transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
-            transport.close();
+            sendEmailMessage(session, emailMessage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,6 +60,19 @@ public class EmailMessage {
         properties.put("mail.smtp.auth", "true");
 
         return properties;
+    }
+
+    private Session setupSession(Properties properties) {
+        return Session.getInstance(
+                properties, new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(
+                                properties.getProperty("mail.smtp.user"),
+                                properties.getProperty("mail.smtp.password"));
+                    }
+                }
+        );
     }
 
     private Message prepareEmailMessage(Session session) throws MessagingException {
@@ -92,6 +96,15 @@ public class EmailMessage {
         return emailMessage;
     }
 
+    private void sendEmailMessage(Session session, Message emailMessage) throws MessagingException {
+        Transport transport = session.getTransport("smtp");
+        transport.connect(
+                session.getProperty("mail.smtp.host"),
+                session.getProperty("mail.smtp.user"),
+                session.getProperty("mail.smtp.password"));
+        transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
+        transport.close();
+    }
 
     public static class Builder {
         private String from;    // required

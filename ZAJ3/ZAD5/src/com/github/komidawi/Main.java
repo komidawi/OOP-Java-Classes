@@ -5,10 +5,10 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-        String from = "zaj3zad5@mail-online.cz";
+        String from = "zaj3zad5java@mail-online.cz";
 
         LinkedList<String> recipients = new LinkedList<>();
-        recipients.add("bca20876@nbzmr.com");
+        recipients.add("shuq3@wimsg.com");
 
         LinkedList<String> cc = new LinkedList<>();
         cc.add("qb99r@wimsg.com");
