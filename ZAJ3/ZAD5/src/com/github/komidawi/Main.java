@@ -5,24 +5,22 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-        String from = "zaj3zad5@yandex.com";
+        String from = "zaj3zad5java@mail-online.cz";
 
         LinkedList<String> recipients = new LinkedList<>();
-        recipients.add("g6272542@nwytg.net");
+        recipients.add("shuq3@wimsg.com");
 
         LinkedList<String> cc = new LinkedList<>();
-        cc.add("ccone@mail.com");
-        cc.add("cctwo@mail.com");
+        cc.add("qb99r@wimsg.com");
 
         LinkedList<String> bcc = new LinkedList<>();
-        bcc.add("bccone@mail.com");
-        bcc.add("bcctwo@mail.com");
+        bcc.add("qcwo5fza.qrj@20minutemail.it");
 
 
         EmailMessage emailMessage =
                 new EmailMessage.Builder(from, recipients)
-                        .addSubject("Subject")
-                        .addContent("Hello, sir!")
+                        .addSubject("JavaMail Message")
+                        .addContent("This message has been sent using JavaMail.")
                         .addMimeType("text/plain")
                         .addCc(cc)
                         .addBcc(bcc)
