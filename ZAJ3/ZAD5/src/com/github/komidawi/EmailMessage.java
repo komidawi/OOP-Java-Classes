@@ -34,9 +34,32 @@ public class EmailMessage {
     }
 
     public void send() {
-        // 1. Creating javax.mail.Session object
-        String password = "EmailBuilder1";
-        String host = "mail.mail.world";
+        try {
+            // 1. Creating javax.mail.Session object
+            Properties properties = setupProperties();
+            Session session = Session.getDefaultInstance(properties);
+            //session.setDebug(true);
+
+            /* 2. Creating javax.mail.internet.MimeMessage object, we have to set different properties
+            in this object such as recipient email address, Email Subject, Reply-To email, email body, attachments etc. */
+            Message emailMessage = prepareEmailMessage(session);
+
+            //3. Using javax.mail.Transport to send the email message.
+            Transport transport = session.getTransport("smtp");
+            transport.connect(
+                    session.getProperty("mail.smtp.host"),
+                    session.getProperty("mail.smtp.user"),
+                    session.getProperty("mail.smtp.password"));
+            transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
+            transport.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Properties setupProperties() {
+        final String password = "EmailBuilder1";
+        final String host = "mail.mail.world";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.starttls.enable", "true");
@@ -45,39 +68,28 @@ public class EmailMessage {
         properties.put("mail.smtp.password", password);
         properties.put("mail.smtp.auth", "true");
 
-        Session session = Session.getDefaultInstance(properties);
-        session.setDebug(true);
+        return properties;
+    }
 
-        /* 2. Creating javax.mail.internet.MimeMessage object, we have to set different properties
-           in this object such as recipient email address, Email Subject, Reply-To email, email body, attachments etc. */
+    private Message prepareEmailMessage(Session session) throws MessagingException {
+        Message emailMessage = new MimeMessage(session);
+        emailMessage.setFrom(new InternetAddress(from));
+        emailMessage.setSubject(subject);
+        emailMessage.setText(content);
 
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.setSubject(subject);
-            message.setText(content);
-
-            for (String recipient : to) {
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            }
-
-            for (String ccRecipient : cc) {
-                message.addRecipient(Message.RecipientType.CC, new InternetAddress(ccRecipient));
-            }
-
-            for (String bccRecipient : bcc) {
-                message.addRecipient(Message.RecipientType.BCC, new InternetAddress(bccRecipient));
-            }
-
-            //3. Using javax.mail.Transport to send the email message.
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, password);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
+        for (String recipient : to) {
+            emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
         }
+
+        for (String ccRecipient : cc) {
+            emailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(ccRecipient));
+        }
+
+        for (String bccRecipient : bcc) {
+            emailMessage.addRecipient(Message.RecipientType.BCC, new InternetAddress(bccRecipient));
+        }
+
+        return emailMessage;
     }
 
 
@@ -154,4 +166,3 @@ public class EmailMessage {
         }
     }
 }
-

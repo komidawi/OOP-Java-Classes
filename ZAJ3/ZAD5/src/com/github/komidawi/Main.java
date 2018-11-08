@@ -8,13 +8,13 @@ public class Main {
         String from = "zaj3zad5@mail-online.cz";
 
         LinkedList<String> recipients = new LinkedList<>();
-        recipients.add("i90669@nwytg.net");
+        recipients.add("bca20876@nbzmr.com");
 
         LinkedList<String> cc = new LinkedList<>();
-        cc.add("i91949@nwytg.net");
+        cc.add("qb99r@wimsg.com");
 
         LinkedList<String> bcc = new LinkedList<>();
-        bcc.add("i91974@nwytg.net");
+        bcc.add("qcwo5fza.qrj@20minutemail.it");
 
 
         EmailMessage emailMessage =
