@@ -48,8 +48,8 @@ public class Main {
         C objectC = new C(300, "ObjectC");
 
         objectC.callChangeName();
-        /* Error:(47, 35) java: name is not public in com.github.komidawi.A; cannot be accessed from outside package */
         //System.out.println(objectC.name);
+        /* Error:(47, 35) java: name is not public in com.github.komidawi.A; cannot be accessed from outside package */
 
         objectC.callIncrement();
         System.out.println(objectC.number);
