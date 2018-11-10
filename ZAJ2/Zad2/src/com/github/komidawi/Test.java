@@ -6,16 +6,17 @@ import java.util.Scanner;
 public class Test {
 
     private static LinkedList<Rectangle> figures = new LinkedList<>();
-    private static boolean ifRun = true;
 
     public static void main(String[] args) {
         run();
     }
 
     private static void run() {
+        boolean ifRun = true;
+
         while (ifRun) {
             showMenu();
-            handleUserResponse();
+            ifRun = handleUserResponse();
         }
     }
 
@@ -27,25 +28,26 @@ public class Test {
         }
     }
 
-    private static void handleUserResponse() {
+    private static boolean handleUserResponse() {
         Scanner scanner = new Scanner(System.in);
         int userResponse = scanner.nextInt();
 
         switch (userResponse) {
             case 0:
                 addNewRectangle();
-                break;
+                return true;
             case 1:
                 showAllRectangles();
-                break;
+                return true;
             case 2:
                 showSumOfAllAreas();
-                break;
+                return true;
             case 3:
-                close(scanner);
-                break;
+                prepareAppForClosing(scanner);
+                return false;
             default:
                 System.out.println("Wrong input. Try again.");
+                return true;
         }
     }
 
@@ -56,13 +58,17 @@ public class Test {
         System.out.println("Set b: ");
         double b = scanner.nextDouble();
 
-        figures.add(new Rectangle(a, b));
+        if (isSideLengthValid(a) && isSideLengthValid(b)) {
+            figures.add(new Rectangle(a, b));
+        } else {
+            System.out.println("Wrong input data. Please try again.");
+        }
     }
 
     private static void showAllRectangles() {
         for (int i = 0; i < figures.size(); i++) {
             Rectangle current = figures.get(i);
-            System.out.printf("Figure #%d: a=%.2f, b=%.2f, area=%.2f\n", i, current.getA(), current.getB(), current.area());
+            System.out.printf("Figure #%d: a=%f, b=%f, area=%f\n", i, current.getA(), current.getB(), current.area());
         }
     }
 
@@ -79,8 +85,11 @@ public class Test {
         return sumOfAllAreas;
     }
 
-    private static void close(Scanner scanner) {
+    private static void prepareAppForClosing(Scanner scanner) {
         scanner.close();
-        ifRun = false;
+    }
+
+    private static boolean isSideLengthValid(double sideLength) {
+        return sideLength > 0;
     }
 }
