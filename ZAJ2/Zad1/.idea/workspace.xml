@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e259e14f-0557-4b53-8c03-a5b15d4da62f" name="Default Changelist" comment="" />
+    <list default="true" id="e259e14f-0557-4b53-8c03-a5b15d4da62f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../ZAJ1/Zad2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ZAJ1/Zad2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ZAJ1/Zad4_PESEL/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ZAJ1/Zad4_PESEL/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ZAJ1/Zad4_PESEL/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../ZAJ1/Zad4_PESEL/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/komidawi/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/komidawi/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/github/komidawi2/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/github/komidawi2/C.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,19 +52,31 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="2" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open" />
+      <usages-collector id="statistics.vcs.git.usages" />
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/A.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="300">
               <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
               <folding>
                 <element signature="e#226#227#0" expanded="true" />
@@ -80,7 +99,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/B.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="300">
               <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#96#97#0" expanded="true" />
@@ -97,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/github/komidawi2/C.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="165">
+              <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
               <folding>
                 <element signature="e#127#128#0" expanded="true" />
                 <element signature="e#162#163#0" expanded="true" />
@@ -107,11 +126,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            <state relative-caret-position="765">
+              <caret line="51" column="119" selection-start-line="51" selection-start-column="119" selection-end-line="51" selection-end-column="119" />
               <folding>
                 <element signature="e#126#127#0" expanded="true" />
                 <element signature="e#155#156#0" expanded="true" />
@@ -129,6 +148,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -141,10 +163,13 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-7" />
     <option name="width" value="697" />
     <option name="height" value="735" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -157,44 +182,29 @@
         <subPane>
           <expand>
             <path>
-              <item name="Zad2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zad2" type="462c0819:PsiDirectoryNode" />
+              <item name="Zad1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zad1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Zad2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zad2" type="462c0819:PsiDirectoryNode" />
+              <item name="Zad1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zad1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Zad2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zad2" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="github" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zad2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zad2" type="462c0819:PsiDirectoryNode" />
+              <item name="Zad1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zad1" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="github" type="462c0819:PsiDirectoryNode" />
-              <item name="komidawi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zad2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zad2" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="github" type="462c0819:PsiDirectoryNode" />
-              <item name="komidawi2" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539724154762" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Zad3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -242,9 +252,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2624811" />
+      <window_info id="Learn" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26626325" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -278,9 +289,46 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/B.java" />
     <entry file="file://$PROJECT_DIR$/src/A.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="119" selection-start-line="51" selection-start-column="119" selection-end-line="51" selection-end-column="119" />
+          <folding>
+            <element signature="e#126#127#0" expanded="true" />
+            <element signature="e#155#156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/github/komidawi2/C.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <element signature="e#127#128#0" expanded="true" />
+            <element signature="e#162#163#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/B.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#96#97#0" expanded="true" />
+            <element signature="e#131#132#0" expanded="true" />
+            <element signature="e#165#166#0" expanded="true" />
+            <element signature="e#193#194#0" expanded="true" />
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/A.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="300">
           <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
           <folding>
             <element signature="e#226#227#0" expanded="true" />
@@ -295,43 +343,6 @@
             <element signature="e#494#495#0" expanded="true" />
             <element signature="e#519#520#0" expanded="true" />
             <element signature="e#547#548#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/B.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#96#97#0" expanded="true" />
-            <element signature="e#131#132#0" expanded="true" />
-            <element signature="e#165#166#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#278#279#0" expanded="true" />
-            <element signature="e#306#307#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/github/komidawi2/C.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#127#128#0" expanded="true" />
-            <element signature="e#162#163#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/github/komidawi/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#126#127#0" expanded="true" />
-            <element signature="e#155#156#0" expanded="true" />
           </folding>
         </state>
       </provider>

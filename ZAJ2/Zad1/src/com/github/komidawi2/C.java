@@ -8,7 +8,7 @@ public class C extends B {
     }
 
     void changeName() {
-        /* name = "CCC"; */
+        // name = "CCC";
         /* Error:(11, 9) java: name is not public in com.github.komidawi.A; cannot be accessed from outside package */
     }
 }
