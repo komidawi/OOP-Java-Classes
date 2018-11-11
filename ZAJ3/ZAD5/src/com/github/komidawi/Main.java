@@ -1,5 +1,6 @@
 package com.github.komidawi;
 
+import javax.mail.internet.AddressException;
 import java.util.LinkedList;
 
 public class Main {
@@ -17,15 +18,18 @@ public class Main {
         bcc.add("qcwo5fza.qrj@20minutemail.it");
 
 
-        EmailMessage emailMessage =
-                new EmailMessage.Builder(from, recipients)
-                        .addSubject("JavaMail Message")
-                        .addContent("This message has been sent using JavaMail.")
-                        .addMimeType("text/plain")
-                        .addCc(cc)
-                        .addBcc(bcc)
-                        .build();
+        try {
+            EmailMessage emailMessage = new EmailMessage.Builder(from, recipients)
+                    .addSubject("JavaMail Message")
+                    .addContent("This message has been sent using JavaMail.")
+                    .addMimeType("text/plain")
+                    .addCc(cc)
+                    .addBcc(bcc)
+                    .build();
 
-        emailMessage.send();
+            emailMessage.send();
+        } catch (AddressException e) {
+            e.printStackTrace();
+        }
     }
 }
