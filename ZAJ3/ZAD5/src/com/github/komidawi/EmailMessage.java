@@ -41,7 +41,7 @@ public class EmailMessage {
             in this object such as recipient email address, Email Subject, Reply-To email, email body, attachments etc. */
             Message emailMessage = prepareEmailMessage(session);
 
-            //3. Using javax.mail.Transport to send the email message.
+            // 3. Using javax.mail.Transport to send the email message.
             sendEmailMessage(session, emailMessage);
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,14 +96,16 @@ public class EmailMessage {
         return emailMessage;
     }
 
-    private void sendEmailMessage(Session session, Message emailMessage) throws MessagingException {
-        Transport transport = session.getTransport("smtp");
-        transport.connect(
-                session.getProperty("mail.smtp.host"),
-                session.getProperty("mail.smtp.user"),
-                session.getProperty("mail.smtp.password"));
-        transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
-        transport.close();
+    private void sendEmailMessage(Session session, Message emailMessage) {
+        try (Transport transport = session.getTransport("smtp")){
+            transport.connect(
+                    session.getProperty("mail.smtp.host"),
+                    session.getProperty("mail.smtp.user"),
+                    session.getProperty("mail.smtp.password"));
+            transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static class Builder {
@@ -116,33 +118,29 @@ public class EmailMessage {
         private LinkedList<String> bcc;
 
         // Java Builder class should have a public constructor with all the required attributes as parameters.
-        public Builder(String from, LinkedList<String> to) {
-            addFrom(from);
-            addTo(to);
+        public Builder(String from, LinkedList<String> to) throws AddressException {
+                addFrom(from);
+                addTo(to);
         }
 
-        private void addFrom(String senderEmail) {
-            if (senderEmail != null && isEmailAddressValid(senderEmail)) {
+        private void addFrom(String senderEmail) throws AddressException {
+            if (senderEmail != null) {
+                validateEmailAddress(senderEmail);
                 this.from = senderEmail;
             }
         }
 
-        private void addTo(LinkedList<String> recipients) {
+        private void addTo(LinkedList<String> recipients) throws AddressException {
             if (recipients != null && recipients.size() > 0) {
+                for (String recipientEmail : recipients) {
+                    validateEmailAddress(recipientEmail);
+                }
                 this.to = recipients;
             }
         }
 
-        private boolean isEmailAddressValid(String email) {
-            boolean result = true;
-            try {
-                InternetAddress emailAddress = new InternetAddress(email);
-                emailAddress.validate();
-            } catch (AddressException e) {
-                result = false;
-                e.printStackTrace();
-            }
-            return result;
+        private void validateEmailAddress(String emailAddress) throws AddressException {
+            new InternetAddress(emailAddress).validate();
         }
 
         /* Java Builder class should have methods to set the optional parameters and
