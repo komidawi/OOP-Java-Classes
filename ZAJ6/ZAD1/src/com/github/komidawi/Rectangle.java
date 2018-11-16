@@ -4,10 +4,10 @@ import java.awt.*;
 
 public class Rectangle extends Square {
 
-    private int b;
+    protected int b;
 
-    public Rectangle(int x, int y, int a, int b) {
-        super(x, y, a);
+    public Rectangle(Point position, int a, int b) {
+        super(position, a);
 
         validateLength(b);
         this.b = b;
@@ -15,10 +15,7 @@ public class Rectangle extends Square {
 
     @Override
     public String toString() {
-        return "Rectangle{" +
-                "a=" + a +
-                ", b=" + b +
-                '}';
+        return "Rectangle{a=" + a + ", b=" + b + "}";
     }
 
     public int getB() {
@@ -27,6 +24,6 @@ public class Rectangle extends Square {
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect(x, y, getA(), getB());
+        g.drawRect(position.x, position.y, getA(), getB());
     }
 }

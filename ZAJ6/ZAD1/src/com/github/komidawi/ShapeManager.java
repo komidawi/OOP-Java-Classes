@@ -16,12 +16,6 @@ public class ShapeManager {
         return shapes;
     }
 
-    public void printShapes() {
-        for (Shape shape : shapes) {
-            System.out.println(shape);
-        }
-    }
-
     public void addShape(Shape shape) {
         checkIfNotNull(shape);
         shapes.add(shape);
@@ -29,7 +23,7 @@ public class ShapeManager {
 
     public void setShapes(ArrayList<Shape> shapes) {
         checkIfNotNull(shapes);
-        this.shapes = shapes;
+        this.shapes = new ArrayList<>(shapes);
     }
 
     private void checkIfNotNull(Object object) {

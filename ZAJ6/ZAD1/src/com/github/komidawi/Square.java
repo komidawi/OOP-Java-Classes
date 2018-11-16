@@ -6,8 +6,8 @@ public class Square extends Shape {
 
     protected int a;
 
-    public Square(int x, int y, int a) {
-        super(x, y);
+    public Square(Point position, int a) {
+        super(position);
 
         validateLength(a);
         this.a = a;
@@ -15,14 +15,12 @@ public class Square extends Shape {
 
     @Override
     public String toString() {
-        return "Square{" +
-                "a=" + a +
-                '}';
+        return "Square{a=" + a + "}";
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect(x, y, getA(), getA());
+        g.drawRect(position.x, position.y, getA(), getA());
     }
 
     public int getA() {

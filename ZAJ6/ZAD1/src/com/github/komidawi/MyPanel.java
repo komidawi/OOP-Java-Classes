@@ -1,15 +1,18 @@
 package com.github.komidawi;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class ShapeDrawPanel extends JPanel {
+public class MyPanel extends Panel {
 
     private ShapeManager shapeManager;
 
-    public ShapeDrawPanel(ShapeManager shapeManager) {
+    public MyPanel(ShapeManager shapeManager) {
         checkIfNotNull(shapeManager);
         this.shapeManager = new ShapeManager(shapeManager);
+    }
+
+    public ShapeManager getShapeManager() {
+        return shapeManager;
     }
 
     @Override

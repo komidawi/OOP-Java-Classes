@@ -4,10 +4,10 @@ import java.awt.*;
 
 public class Circle extends Shape {
 
-    private int radius;
+    protected int radius;
 
-    public Circle(int x, int y, int radius) {
-        super(x, y);
+    public Circle(Point position, int radius) {
+        super(position);
 
         validateLength(radius);
         this.radius = radius;
@@ -15,9 +15,7 @@ public class Circle extends Shape {
 
     @Override
     public String toString() {
-        return "Circle{" +
-                "radius=" + radius +
-                '}';
+        return "Circle{radius=" + radius + "}";
     }
 
     public int getRadius() {
@@ -26,6 +24,6 @@ public class Circle extends Shape {
 
     @Override
     public void draw(Graphics g) {
-        g.drawOval(x, y, 2*getRadius(), 2*getRadius());
+        g.drawOval(position.x, position.y, 2*getRadius(), 2*getRadius());
     }
 }
