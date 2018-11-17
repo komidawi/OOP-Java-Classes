@@ -1,16 +1,13 @@
 package com.github.komidawi;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ShapeManager {
+
     private ArrayList<Shape> shapes = new ArrayList<>();
 
     public ShapeManager() {}
-
-    public ShapeManager(ShapeManager shapeManager) {
-        checkIfNotNull(shapeManager);
-        shapes = new ArrayList<>(shapeManager.getShapes());
-    }
 
     public ArrayList<Shape> getShapes() {
         return shapes;
@@ -21,9 +18,10 @@ public class ShapeManager {
         shapes.add(shape);
     }
 
-    public void setShapes(ArrayList<Shape> shapes) {
-        checkIfNotNull(shapes);
-        this.shapes = new ArrayList<>(shapes);
+    public void addExampleShapes() {
+        addShape(new Square(new Point(5, 10), 10));
+        addShape(new Rectangle(new Point(20, 20), 60, 60));
+        addShape(new Circle(new Point(60, 60), 60));
     }
 
     private void checkIfNotNull(Object object) {

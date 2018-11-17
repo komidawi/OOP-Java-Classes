@@ -13,17 +13,13 @@ public class Circle extends Shape {
         this.radius = radius;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
+    public int getRadius() {
+        return radius;
     }
 
     @Override
     public String toString() {
         return "Circle{radius=" + radius + "}";
-    }
-
-    public int getRadius() {
-        return radius;
     }
 
     @Override

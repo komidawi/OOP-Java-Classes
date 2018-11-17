@@ -1,28 +1,29 @@
 package com.github.komidawi;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class MyPanel extends Panel implements MouseListener, MouseMotionListener {
+public class DrawPanel extends Panel implements MouseListener, MouseMotionListener {
 
     private ShapeManager shapeManager;
+    private Shape clickedShape = null;
     private int shiftX;
     private int shiftY;
-    private Shape clickedShape = null;
 
-    public enum actions{
+    public enum actions {
         ADD_SQUARE,
         ADD_RECTANGLE,
         ADD_CIRCLE
     }
 
 
-    public MyPanel(ShapeManager shapeManager) {
+    public DrawPanel(ShapeManager shapeManager) {
         checkIfNotNull(shapeManager);
-        this.shapeManager = new ShapeManager(shapeManager);
+        this.shapeManager = shapeManager;
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     public ShapeManager getShapeManager() {
@@ -86,7 +87,6 @@ public class MyPanel extends Panel implements MouseListener, MouseMotionListener
             throw new NullPointerException();
         }
     }
-
 
 
     @Override

@@ -3,7 +3,6 @@ package com.github.komidawi;
 import java.awt.*;
 
 public abstract class Shape {
-    protected String name;
     protected Point position = new Point();
 
     public abstract void draw(Graphics g);
