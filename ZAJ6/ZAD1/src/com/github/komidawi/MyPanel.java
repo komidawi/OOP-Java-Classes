@@ -1,10 +1,19 @@
 package com.github.komidawi;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
-public class MyPanel extends Panel {
+public class MyPanel extends Panel implements MouseListener, MouseMotionListener {
 
     private ShapeManager shapeManager;
+    private int shiftX;
+    private int shiftY;
+    private Shape clickedShape = null;
+
 
     public MyPanel(ShapeManager shapeManager) {
         checkIfNotNull(shapeManager);
@@ -24,9 +33,68 @@ public class MyPanel extends Panel {
         }
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+        Point clickedPoint = e.getPoint();
+        clickedShape = getClickedShape(clickedPoint);
+
+        if (clickedShape != null) {
+            shiftX = clickedShape.position.x - clickedPoint.x;
+            shiftY = clickedShape.position.y - clickedPoint.y;
+            repaint();
+        }
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (clickedShape != null) {
+            clickedShape.setPosition(
+                    new Point(e.getPoint().x + shiftX,
+                            e.getPoint().y + shiftY));
+            repaint();
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        ArrayList<Shape> shapes = shapeManager.getShapes();
+        shapes.add(clickedShape);
+        shapes.remove(clickedShape);
+        clickedShape = null;
+    }
+
+    private Shape getClickedShape(Point clickedPoint) {
+        ArrayList<Shape> shapes = shapeManager.getShapes();
+        ListIterator<Shape> iterator = shapes.listIterator(shapes.size());
+        while (iterator.hasPrevious()) {
+            Shape current = iterator.previous();
+
+            if (current.isWithinArea(clickedPoint)) {
+                return current;
+            }
+        }
+        return null;
+    }
+
     private void checkIfNotNull(Object object) {
         if (object == null) {
             throw new NullPointerException();
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

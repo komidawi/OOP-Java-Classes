@@ -7,11 +7,18 @@ public abstract class Shape {
     protected Point position = new Point();
 
     public abstract void draw(Graphics g);
+    public abstract boolean isWithinArea(Point point);
 
     public Shape(Point position) {
         // using properties directly due to Point class architecture
         checkIfNotNull(position);
         validatePosition(position);
+        this.position.x = position.x;
+        this.position.y = position.y;
+    }
+
+    public void setPosition(Point position) {
+        checkIfNotNull(position);
         this.position.x = position.x;
         this.position.y = position.y;
     }

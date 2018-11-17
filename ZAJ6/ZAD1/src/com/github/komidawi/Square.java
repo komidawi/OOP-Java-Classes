@@ -23,7 +23,17 @@ public class Square extends Shape {
         g.drawRect(position.x, position.y, getA(), getA());
     }
 
+    @Override
+    public boolean isWithinArea(Point point) {
+        return point.x >= position.x && point.x <= position.x + getA()
+                && point.y >= position.y && point.y <= position.y + getA();
+    }
+
     public int getA() {
         return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
     }
 }

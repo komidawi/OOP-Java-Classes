@@ -2,10 +2,7 @@ package com.github.komidawi;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class Main {
 
@@ -21,6 +18,8 @@ public class Main {
         {
             ShapeManager shapeManager = setupShapeManager();
             MyPanel drawPanel = new MyPanel(shapeManager);
+            drawPanel.addMouseListener(drawPanel);
+            drawPanel.addMouseMotionListener(drawPanel);
 
             Panel rootPanel = new Panel();
             rootPanel.setLayout(new BorderLayout());
