@@ -1,9 +1,8 @@
 package com.github.komidawi;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -13,6 +12,12 @@ public class MyPanel extends Panel implements MouseListener, MouseMotionListener
     private int shiftX;
     private int shiftY;
     private Shape clickedShape = null;
+
+    public enum actions{
+        ADD_SQUARE,
+        ADD_RECTANGLE,
+        ADD_CIRCLE
+    }
 
 
     public MyPanel(ShapeManager shapeManager) {
@@ -81,6 +86,8 @@ public class MyPanel extends Panel implements MouseListener, MouseMotionListener
             throw new NullPointerException();
         }
     }
+
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
