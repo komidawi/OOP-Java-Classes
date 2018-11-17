@@ -27,7 +27,7 @@ public class Polibiusz implements Algorithm {
         toBeCrypted = toBeCrypted.toUpperCase();
         toBeCrypted = toBeCrypted.replace('J', 'I');
         toBeCrypted = toBeCrypted.replaceAll("\\s", "");
-        return  toBeCrypted;
+        return toBeCrypted;
     }
 
     private String cryptLetter(char letter) {

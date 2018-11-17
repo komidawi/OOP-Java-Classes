@@ -15,7 +15,6 @@ public class Cryptographer {
             outputFilePath = args[1];
         }
 
-
         run();
     }
 
@@ -91,15 +90,10 @@ public class Cryptographer {
         StringBuilder content = new StringBuilder();
         String line;
 
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            while ((line = bufferedReader.readLine()) != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            while ((line = reader.readLine()) != null) {
                 content.append(line);
             }
-
-            bufferedReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File to read not found!");
             e.printStackTrace();
@@ -112,13 +106,8 @@ public class Cryptographer {
     }
 
     private static void writeToFile(File file, String content) {
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            bufferedWriter.write(content);
-
-            bufferedWriter.close();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(content);
         } catch (IOException e) {
             System.out.println("Unknown error.");
             e.printStackTrace();
