@@ -32,28 +32,44 @@ public class FunctionPlotter {
     }
 
     private MathPlotProperties askForPlotProperties() {
-        String formula = askForPlotProperty("formula (everything after f(x)=)\n" +
-                "See https://lallafa.objecthunter.net/exp4j/index.html for more information");
-        String start = askForPlotProperty("start point");
-        String end = askForPlotProperty("end point");
-        String frequency = askForPlotProperty("sampling frequency");
+        String formula = null;
+        String start = null;
+        String end = null;
+        String frequency = null;
 
-        Expression expression = new ExpressionBuilder(formula)
-                .variables("x")
-                .build();
+        formula = askForPlotProperty("formula (everything after f(x)=)\n" +
+                "See https://lallafa.objecthunter.net/exp4j/index.html for more information", "x^3+3x^2-5x+6");
+        if (formula != null) {
 
-        return new MathPlotProperties(
-                expression,
-                new Range(Integer.parseInt(start), Integer.parseInt(end)),
-                Integer.parseInt(frequency));
+            start = askForPlotProperty("start point", "-5");
+        }
+        if (start != null) {
+
+            end = askForPlotProperty("end point", "5");
+        }
+        if (end != null) {
+
+            frequency = askForPlotProperty("sampling frequency", "1");
+        }
+        if (frequency != null) {
+
+            Expression expression = new ExpressionBuilder(formula)
+                    .variables("x")
+                    .build();
+
+            return new MathPlotProperties(
+                    expression,
+                    new Range(Integer.parseInt(start), Integer.parseInt(end)),
+                    Integer.parseInt(frequency));
+        }
+        return null;
     }
 
-    private String askForPlotProperty(String property) {
+    private String askForPlotProperty(String property, String defaultValue) {
         return JOptionPane.showInputDialog(
                 JOptionPane.getRootFrame(),
                 "Please enter " + property,
-                "",
-                JOptionPane.PLAIN_MESSAGE);
+                defaultValue);
     }
 }
 
