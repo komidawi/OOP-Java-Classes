@@ -17,8 +17,8 @@ class FunctionPlotPanel extends JPanel {
     private static final int CODOMAIN_TEXT_SHIFT_X = 45;
     private static final int CODOMAIN_TEXT_SHIFT_Y = 5;
 
-    private int xScale;
-    private int yScale;
+    private double xScale;
+    private double yScale;
 
     private MathPlotProperties properties;
     private ArrayList<Point2D> points;
@@ -60,8 +60,8 @@ class FunctionPlotPanel extends JPanel {
     }
 
     private void determineScale() {
-        xScale = (int) ((getWidth() - 2 * BORDER_GAP) / (getMaximumRange() - getMinimumRange()));
-        yScale = (int) ((getHeight() - 2 * BORDER_GAP) / (getMaximumValue() - getMinimumValue()));
+        xScale = ((getWidth() - 2 * BORDER_GAP) / (getMaximumRange() - getMinimumRange()));
+        yScale = ((getHeight() - 2 * BORDER_GAP) / (getMaximumValue() - getMinimumValue()));
     }
 
     private void drawAxes(Graphics2D g2d) {
