@@ -2,7 +2,6 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -19,13 +18,13 @@ import java.io.FileInputStream;
 public class BrowserController extends ScrollPane {
 
     @FXML
-    private TilePane flowPane;
+    private TilePane mainPane;
 
     @FXML
     private ScrollPane scrollPane;
 
     private Stage stage;
-    private ImageViewer imageViewer;
+    private MainApp mainApp;
 
     private final int HEIGHT_SCALE = 7;
     private final int WIDTH_SCALE = 6;
@@ -42,10 +41,6 @@ public class BrowserController extends ScrollPane {
         eventHandler = new DisplayFullSizeImageHandler();
     }
 
-    public TilePane getFlowPane() {
-        return flowPane;
-    }
-
     public void determineThumbnailSize() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         thumbnailHeight = screenSize.height / HEIGHT_SCALE;
@@ -56,32 +51,26 @@ public class BrowserController extends ScrollPane {
         //TODO: It can be done using JAVA 8 walk (see how)
         //TODO: take care of closing streams
 
-        //flowPane.setPrefWrapLength(1000);
-        flowPane.setVgap(10);
-        flowPane.setHgap(10);
-        flowPane.setPadding(new Insets(10, 10, 10, 10));
-        //flowPane.setPrefTileWidth(thumbnailWidth);
-        //flowPane.setPrefTileHeight(thumbnailHeight);
-
+        mainPane.setVgap(10);
+        mainPane.setHgap(10);
+        mainPane.setPadding(new Insets(10, 10, 10, 10));
 
         try {
             File[] files = selectedDirectory.listFiles(new ImageFilter());
 
-            ObservableList list = flowPane.getChildren();
+            ObservableList list = mainPane.getChildren();
             list.clear();
 
-            double a = flowPane.getPrefTileWidth();
-            double b = flowPane.getPrefTileHeight();
+            double a = mainPane.getPrefTileWidth();
+            double b = mainPane.getPrefTileHeight();
 
             for (File file : files) {
                 FileInputStream inputStream = new FileInputStream(file);
                 Image image = new Image(inputStream, a, b, true, true); //, thumbnailWidth, thumbnailHeight, true, true);
-                MyImageView imageView = new MyImageView(image, file);
+                FileImageView imageView = new FileImageView(image, file);
                 imageView.setPreserveRatio(true);
                 imageView.setOnMouseClicked(eventHandler);
 
-                //imageView.setFitHeight(thumbnailHeight);
-                //imageView.setFitWidth(thumbnailWidth);
                 list.add(imageView);
             }
         } catch (Exception e) {
@@ -89,37 +78,25 @@ public class BrowserController extends ScrollPane {
         }
     }
 
-    public void setImageViewer(ImageViewer imageViewer) {
-        this.imageViewer = imageViewer;
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 
-
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     private class DisplayFullSizeImageHandler implements EventHandler<MouseEvent> {
 
         @Override
         public void handle(MouseEvent event) {
             try {
-                MyImageView imageView = (MyImageView) event.getSource();
-                File imageFile = imageView.getImageFile();
+                FileImageView imageView = (FileImageView) event.getSource();
+                File imageFile = imageView.getFile();
                 FileInputStream inputStream = new FileInputStream(imageFile);
                 Image image = new Image(inputStream);
                 ImageView imageView1 = new ImageView(image);
                 imageView1.setPreserveRatio(true);
                 imageView1.setSmooth(true);
 
-                Group group = new Group(imageView1);
-
-
                 BorderPane borderPane = new BorderPane(imageView1);
-
-
-                ScrollPane scrollPane = new ScrollPane();
-                scrollPane.setContent(imageView1);
 
                 Stage stage = new Stage();
                 stage.setMaximized(true);
@@ -133,6 +110,4 @@ public class BrowserController extends ScrollPane {
             }
         }
     }
-
-
 }
