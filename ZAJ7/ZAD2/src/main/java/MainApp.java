@@ -3,25 +3,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ImageViewer extends Application {
+public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ImageViewerController imageViewerController;
+
+
+    private MainAppController mainAppController;
     private BrowserController browserController;
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     @Override
@@ -30,45 +26,46 @@ public class ImageViewer extends Application {
         primaryStage.setTitle("ImageBrowser");
 
         initializeRootLayout();
-        initializeView();
+        initializeImageBrowser();
     }
 
     private void initializeRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ImageViewer.class.getResource("RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
+            rootLayout = loader.load();
 
-            // Show the scene containing the root layout
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-
-            imageViewerController = loader.getController();
-            imageViewerController.setStage(primaryStage);
-            imageViewerController.setImageViewer(this);
-
             primaryStage.show();
+
+
+            mainAppController = loader.getController();
+            mainAppController.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void initializeView() {
+    private void initializeImageBrowser() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ImageViewer.class.getResource("Browser.fxml"));
-            ScrollPane scrollPane = (ScrollPane) loader.load();
+            loader.setLocation(MainApp.class.getResource("ImageBrowser.fxml"));
+            ScrollPane scrollPane = loader.load();
             scrollPane.setFitToWidth(true);
             rootLayout.setCenter(scrollPane);
 
-            browserController = loader.getController();
-            browserController.setImageViewer(this);
 
-            imageViewerController.setBrowserController(browserController);
+            browserController = loader.getController();
+            browserController.setMainApp(this);
+            mainAppController.setBrowserController(browserController);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 }
