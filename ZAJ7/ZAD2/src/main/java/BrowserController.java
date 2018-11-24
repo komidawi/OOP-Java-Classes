@@ -1,9 +1,8 @@
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -11,103 +10,86 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
-public class BrowserController extends ScrollPane {
-
-    @FXML
-    private TilePane mainPane;
+public class BrowserController {
 
     @FXML
-    private ScrollPane scrollPane;
+    private TilePane imageViewPane;
 
-    private Stage stage;
     private MainApp mainApp;
-
-    private final int HEIGHT_SCALE = 7;
-    private final int WIDTH_SCALE = 6;
-
-    private int thumbnailHeight;
-    private int thumbnailWidth;
-
     private EventHandler<MouseEvent> eventHandler;
 
 
     public BrowserController() {
-        determineThumbnailSize();
-
-        eventHandler = new DisplayFullSizeImageHandler();
+        eventHandler = new ThumbnailClickHandler();
     }
 
-    public void determineThumbnailSize() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        thumbnailHeight = screenSize.height / HEIGHT_SCALE;
-        thumbnailWidth = screenSize.width / WIDTH_SCALE;
-    }
-
-    public void createImages(File selectedDirectory) {
+    public void loadThumbnails(File selectedDirectory) {
         //TODO: It can be done using JAVA 8 walk (see how)
-        //TODO: take care of closing streams
+        File[] files = selectedDirectory.listFiles(new ImageFilter());
 
-        mainPane.setVgap(10);
-        mainPane.setHgap(10);
-        mainPane.setPadding(new Insets(10, 10, 10, 10));
+        ObservableList<Node> list = imageViewPane.getChildren();
+        list.clear();
 
-        try {
-            File[] files = selectedDirectory.listFiles(new ImageFilter());
+        double thumbnailWidth = imageViewPane.getPrefTileWidth();
+        double thumbnailHeight = imageViewPane.getPrefTileHeight();
 
-            ObservableList list = mainPane.getChildren();
-            list.clear();
+        for (File file : files) {
+            try (FileInputStream inputStream = new FileInputStream(file)) {
+                Image image = new Image(inputStream, thumbnailWidth, thumbnailHeight, true, true);
+                FileImageView thumbnail = new FileImageView(image, file);
+                thumbnail.setPreserveRatio(true);
+                thumbnail.setOnMouseClicked(eventHandler);
 
-            double a = mainPane.getPrefTileWidth();
-            double b = mainPane.getPrefTileHeight();
-
-            for (File file : files) {
-                FileInputStream inputStream = new FileInputStream(file);
-                Image image = new Image(inputStream, a, b, true, true); //, thumbnailWidth, thumbnailHeight, true, true);
-                FileImageView imageView = new FileImageView(image, file);
-                imageView.setPreserveRatio(true);
-                imageView.setOnMouseClicked(eventHandler);
-
-                list.add(imageView);
+                list.add(thumbnail);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
+        }
 
+    }
+
+    private class ThumbnailClickHandler implements EventHandler<MouseEvent> {
+
+        @Override
+        public void handle(MouseEvent event) {
+            try {
+                ImageView fullScreenImage = createFullSizeImage(event);
+                showFullSizeImage(fullScreenImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private ImageView createFullSizeImage(MouseEvent event) throws FileNotFoundException {
+            FileImageView clicked = (FileImageView) event.getSource();
+            File sourceImage = clicked.getFile();
+            FileInputStream inputStream = new FileInputStream(sourceImage);
+            Image image = new Image(inputStream);
+            ImageView fullScreenView = new ImageView(image);
+
+            fullScreenView.setPreserveRatio(true);
+            fullScreenView.setSmooth(true);
+
+            return fullScreenView;
+        }
+
+        private void showFullSizeImage(ImageView fullScreenImage) {
+            BorderPane borderPane = new BorderPane(fullScreenImage);
+            Stage stage = new Stage();
+            stage.setMaximized(true);
+            Scene scene = new Scene(borderPane);
+            fullScreenImage.fitWidthProperty().bind(scene.widthProperty());
+            fullScreenImage.fitHeightProperty().bind(scene.heightProperty());
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-    }
-
-
-    private class DisplayFullSizeImageHandler implements EventHandler<MouseEvent> {
-
-        @Override
-        public void handle(MouseEvent event) {
-            try {
-                FileImageView imageView = (FileImageView) event.getSource();
-                File imageFile = imageView.getFile();
-                FileInputStream inputStream = new FileInputStream(imageFile);
-                Image image = new Image(inputStream);
-                ImageView imageView1 = new ImageView(image);
-                imageView1.setPreserveRatio(true);
-                imageView1.setSmooth(true);
-
-                BorderPane borderPane = new BorderPane(imageView1);
-
-                Stage stage = new Stage();
-                stage.setMaximized(true);
-                Scene scene = new Scene(borderPane);
-                imageView1.fitWidthProperty().bind(scene.widthProperty());
-                imageView1.fitHeightProperty().bind(scene.heightProperty());
-                stage.setScene(scene);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

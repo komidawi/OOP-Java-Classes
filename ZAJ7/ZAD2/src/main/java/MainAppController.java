@@ -1,20 +1,12 @@
 import javafx.fxml.FXML;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ImageViewerController extends BorderPane {
+public class MainAppController {
 
-    private Stage stage;
     private MainApp mainApp;
     private BrowserController browserController;
-
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -30,9 +22,9 @@ public class ImageViewerController extends BorderPane {
         directoryChooser.setTitle("Select Image Folder");
         File defaultDirectory = new File(".");
         directoryChooser.setInitialDirectory(defaultDirectory);
-        File selectedDirectory = directoryChooser.showDialog(stage);
+        File selectedDirectory = directoryChooser.showDialog(mainApp.getPrimaryStage());
 
-        browserController.createImages(selectedDirectory);
+        browserController.loadThumbnails(selectedDirectory);
     }
 
 }

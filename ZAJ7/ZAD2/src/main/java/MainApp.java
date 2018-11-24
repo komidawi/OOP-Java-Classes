@@ -13,8 +13,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
 
-
-    private ImageViewerController imageViewerController;
+    private MainAppController mainAppController;
     private BrowserController browserController;
 
     public static void main(String[] args) {
@@ -41,10 +40,8 @@ public class MainApp extends Application {
             primaryStage.show();
 
 
-
-            imageViewerController = loader.getController();
-            imageViewerController.setStage(primaryStage);
-            imageViewerController.setMainApp(this);
+            mainAppController = loader.getController();
+            mainAppController.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,19 +50,22 @@ public class MainApp extends Application {
     private void initializeImageBrowser() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("Browser.fxml"));
+            loader.setLocation(MainApp.class.getResource("ImageBrowser.fxml"));
             ScrollPane scrollPane = loader.load();
             scrollPane.setFitToWidth(true);
             rootLayout.setCenter(scrollPane);
 
 
-
             browserController = loader.getController();
             browserController.setMainApp(this);
-            imageViewerController.setBrowserController(browserController);
+            mainAppController.setBrowserController(browserController);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }
