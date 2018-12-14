@@ -14,7 +14,7 @@
    <bottom>
       <HBox alignment="BOTTOM_CENTER" minHeight="0.0" minWidth="0.0" spacing="5.0" BorderPane.alignment="BOTTOM_CENTER">
          <children>
-            <TextField fx:id="clientMessageField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#handleKeyPressed" prefHeight="25.0" prefWidth="272.0" />
+            <TextField fx:id="clientMessageField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#handleEnterKey" prefHeight="25.0" prefWidth="272.0" />
             <Button fx:id="sendClientMessageButton" mnemonicParsing="false" onAction="#sendClientMessage" text="Send" />
          </children>
          <BorderPane.margin>

@@ -19,8 +19,7 @@ public class MessengerServer {
     }
 
     public static void main(String[] args) {
-        MessengerServer server = new MessengerServer(3000);
-        server.go();
+        new MessengerServer(3000).go();
     }
 
     private void go() {

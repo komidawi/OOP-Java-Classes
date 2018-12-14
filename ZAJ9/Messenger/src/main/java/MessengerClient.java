@@ -1,9 +1,3 @@
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,60 +5,26 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class MessengerClient extends Application {
-    private String hostIP = "localhost";
-    private int hostPort = 3000;
+public class MessengerClient {
+    private String hostIP;
+    private int hostPort;
     private BufferedReader socketReader;
     private PrintWriter socketWriter;
-    private BorderPane rootLayout;
-    private Stage primaryStage;
     private ChatWindowController controller;
 
     // TODO: Exception handling
     // TODO: split into smaller pieces
 
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        initializeLayout(primaryStage);
-        setupConnection();
-
-        //closeConnection();
+    public MessengerClient(String hostIP, int hostPort) {
+        this.hostIP = hostIP;
+        this.hostPort = hostPort;
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void setController(ChatWindowController controller) {
+        this.controller = controller;
     }
 
-    private void initializeLayout(Stage primaryStage) {
-        try {
-            initializePrimaryStage(primaryStage);
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MessengerClient.class.getResource("ChatWindow.fxml"));
-            rootLayout = loader.load();
-
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-            initializeController(loader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void initializePrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Simple Chat");
-    }
-
-    private void initializeController(FXMLLoader loader) {
-        controller = loader.getController();
-        controller.setClient(this);
-    }
-
-    private void setupConnection() {
+    public void setupConnection() {
         try {
             Socket client = new Socket(hostIP, hostPort);
             socketReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -95,7 +55,6 @@ public class MessengerClient extends Application {
     }
 
     private class IncomingMessagesReader implements Runnable {
-
         @Override
         public void run() {
             String message;

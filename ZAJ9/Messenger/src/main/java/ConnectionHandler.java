@@ -24,7 +24,6 @@ public class ConnectionHandler implements Runnable {
         String message;
         try {
             while ((message = reader.readLine()) != null) {
-                System.out.println("Read " + message);
                 server.sendMessageToEveryone(message);
             }
         } catch (IOException e) {

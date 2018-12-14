@@ -1,11 +1,12 @@
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class ChatWindowController {
+
+    private MessengerClient client;
 
     @FXML
     private TextArea allMessagesArea;
@@ -14,12 +15,7 @@ public class ChatWindowController {
     private TextField clientMessageField;
 
     @FXML
-    private Button sendClientMessageButton;
-
-    private MessengerClient client;
-
-    @FXML
-    private void handleKeyPressed(KeyEvent event) {
+    private void handleEnterKey(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             sendClientMessage();
         }
