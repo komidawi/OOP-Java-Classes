@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -21,15 +22,17 @@ public class MessengerApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         initializeLayout(primaryStage);
         initializeClient();
-
-        //closeConnection();
     }
 
     private void initializeClient() {
-        client = new MessengerClient("localhost", 3000);
-        client.setupConnection();
-        client.setController(controller);
-        controller.setClient(client);
+        try {
+            client = new MessengerClient("localhost", 3000);
+            client.setupConnection();
+            client.setController(controller);
+            controller.setClient(client);
+        } catch (IOException e) {
+            showErrorPopup(e);
+        }
     }
 
     private void initializeLayout(Stage primaryStage) {
@@ -52,5 +55,18 @@ public class MessengerApp extends Application {
     private void initializePrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Simple Chat");
+    }
+
+    private void showErrorPopup(Exception e) {
+        Alert connectionFailed = new Alert(Alert.AlertType.ERROR);
+        connectionFailed.setTitle("Connection error.");
+        connectionFailed.setHeaderText("Failed to connect with the server.");
+        connectionFailed.setContentText(e.toString());
+        connectionFailed.showAndWait();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        client.closeConnection();
     }
 }

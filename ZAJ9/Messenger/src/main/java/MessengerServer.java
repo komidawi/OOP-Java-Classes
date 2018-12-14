@@ -2,13 +2,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MessengerServer {
 
     private ServerSocket serverSocket;
-    private List<PrintWriter> outputStreams = new ArrayList<>();
+    private final Map<Socket, PrintWriter> outputs = Collections.synchronizedMap(new HashMap<>());
 
     public MessengerServer(int portNumber) {
         try {
@@ -27,10 +26,12 @@ public class MessengerServer {
             try {
                 Socket clientSocket = serverSocket.accept();
                 PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-                outputStreams.add(writer);
+
+                synchronized (outputs) {
+                    outputs.put(clientSocket, writer);
+                }
 
                 new Thread(new ConnectionHandler(clientSocket, this)).start();
-                System.out.println("Connection established");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -38,9 +39,17 @@ public class MessengerServer {
     }
 
     public void sendMessageToEveryone(String message) {
-        for (PrintWriter outputStream : outputStreams) {
-            outputStream.println(message);
-            outputStream.flush();
+        synchronized (outputs) {
+            for (Map.Entry<Socket, PrintWriter> entry : outputs.entrySet()) {
+                entry.getValue().println(message);
+                entry.getValue().flush();
+            }
+        }
+    }
+
+    public void closeConnection(Socket clientSocket) {
+        synchronized (outputs) {
+            outputs.remove(clientSocket);
         }
     }
 }

@@ -28,6 +28,8 @@ public class ConnectionHandler implements Runnable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            server.closeConnection(socket);
         }
     }
 }

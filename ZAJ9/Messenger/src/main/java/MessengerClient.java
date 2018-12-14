@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class MessengerClient {
     private String hostIP;
@@ -13,7 +12,6 @@ public class MessengerClient {
     private ChatWindowController controller;
 
     // TODO: Exception handling
-    // TODO: split into smaller pieces
 
     public MessengerClient(String hostIP, int hostPort) {
         this.hostIP = hostIP;
@@ -24,19 +22,11 @@ public class MessengerClient {
         this.controller = controller;
     }
 
-    public void setupConnection() {
-        try {
-            Socket client = new Socket(hostIP, hostPort);
-            socketReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            socketWriter = new PrintWriter(client.getOutputStream());
-            new Thread(new IncomingMessagesReader()).start();
-        } catch (UnknownHostException e) {
-            System.out.println("Error setting up socket connection: unknown host at " + hostIP + ":" + hostPort);
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Error setting up socket connection: " + e);
-            e.printStackTrace();
-        }
+    public void setupConnection() throws IOException {
+        Socket client = new Socket(hostIP, hostPort);
+        socketReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        socketWriter = new PrintWriter(client.getOutputStream());
+        new Thread(new IncomingMessagesReader()).start();
     }
 
     public void sendMessage(String message) {
@@ -44,8 +34,9 @@ public class MessengerClient {
         socketWriter.flush();
     }
 
-    private void closeConnection() {
+    public void closeConnection() {
         try {
+            System.out.println("Connection closed");
             socketWriter.close();
             socketReader.close();
         } catch (IOException e) {
@@ -54,13 +45,13 @@ public class MessengerClient {
         }
     }
 
+
     private class IncomingMessagesReader implements Runnable {
         @Override
         public void run() {
             String message;
             try {
                 while ((message = socketReader.readLine()) != null) {
-                    System.out.println("Client read: " + message);
                     controller.readMessage(message);
                 }
             } catch (IOException e) {
