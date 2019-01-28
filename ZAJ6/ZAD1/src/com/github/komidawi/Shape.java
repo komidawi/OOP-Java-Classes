@@ -9,9 +9,10 @@ public abstract class Shape {
     public abstract boolean isWithinArea(Point point);
 
     public Shape(Point position) {
-        // using properties directly due to Point class architecture
         checkIfNotNull(position);
         validatePosition(position);
+
+        // getting properties directly due to Point class architecture
         this.position.x = position.x;
         this.position.y = position.y;
     }

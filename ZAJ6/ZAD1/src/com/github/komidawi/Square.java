@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Square extends Shape {
 
-    protected int a;
+    private int a;
 
     public Square(Point position, int a) {
         super(position);

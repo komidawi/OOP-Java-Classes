@@ -2,15 +2,22 @@ package com.github.komidawi;
 
 import java.awt.*;
 
-public class Rectangle extends Square {
+public class Rectangle extends Shape {
 
-    protected int b;
+    private int a;
+    private int b;
 
     public Rectangle(Point position, int a, int b) {
-        super(position, a);
+        super(position);
 
+        validateLength(a);
         validateLength(b);
+        this.a = a;
         this.b = b;
+    }
+
+    public int getA() {
+        return a;
     }
 
     public int getB() {
