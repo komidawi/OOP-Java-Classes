@@ -1,13 +1,7 @@
-import com.sun.javafx.scene.control.skin.NestedTableColumnHeader;
-import com.sun.javafx.scene.control.skin.TableColumnHeader;
-import com.sun.javafx.scene.control.skin.TableHeaderRow;
-import com.sun.javafx.scene.control.skin.TableViewSkin;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import java.lang.reflect.Method;
 
 
 public class BookOverviewController {
@@ -89,19 +83,30 @@ public class BookOverviewController {
 
     private void showInformationDialog(int addedRows) {
         Alert alert;
+
         if (addedRows > 0) {
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Adding Result");
-            alert.setHeaderText(null);
-            alert.setContentText("Book added successfully!");
+            alert = prepareInformationAlert();
         } else {
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText("Error while adding book");
+            alert = prepareErrorAlert();
         }
 
         alert.showAndWait();
+    }
+
+    private Alert prepareInformationAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Adding Result");
+        alert.setHeaderText(null);
+        alert.setContentText("Book added successfully!");
+        return alert;
+    }
+
+    private Alert prepareErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Error");
+        alert.setContentText("Error while adding book");
+        return alert;
     }
 
     @FXML
@@ -116,15 +121,13 @@ public class BookOverviewController {
     public void initializeSearchEngine() {
         FilteredList<Book> filteredBooks = new FilteredList<>(mainApp.getBookData(), p -> true);
 
-        authorSearch.textProperty().addListener(((observable, oldValue, newValue) -> {
-            filteredBooks.setPredicate(book -> book.getAuthor().toLowerCase().contains(authorSearch.getText().toLowerCase())
-                    && book.getISBN().contains(ISBNSearch.getText()));
-        }));
+        authorSearch.textProperty().addListener(((observable, oldValue, newValue)
+                -> filteredBooks.setPredicate(book -> book.getAuthor().toLowerCase().contains(authorSearch.getText().toLowerCase())
+                    && book.getISBN().contains(ISBNSearch.getText()))));
 
-        ISBNSearch.textProperty().addListener(((observable, oldValue, newValue) -> {
-            filteredBooks.setPredicate(book -> book.getAuthor().toLowerCase().contains(authorSearch.getText().toLowerCase())
-                    && book.getISBN().contains(ISBNSearch.getText()));
-        }));
+        ISBNSearch.textProperty().addListener(((observable, oldValue, newValue)
+                -> filteredBooks.setPredicate(book -> book.getAuthor().toLowerCase().contains(authorSearch.getText().toLowerCase())
+                    && book.getISBN().contains(ISBNSearch.getText()))));
 
         SortedList<Book> sortedBooks = new SortedList<>(filteredBooks);
 

@@ -30,7 +30,7 @@ public class BookDatabaseUtils {
             String insertionQuery = "INSERT INTO books VALUES(?, ?, ?, ?)";
             statement = connection.prepareStatement(insertionQuery);
 
-            // Using PreparedStatement to prevent from SQL injections and increase performance
+            // Using PreparedStatement to prevent from SQL injections and to increase performance
             PreparedStatement preparedStatement = (PreparedStatement) statement;
             preparedStatement.setString(1, book.getISBN());
             preparedStatement.setString(2, book.getTitle());
