@@ -19,14 +19,14 @@ public class MessengerApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         initializeLayout(primaryStage);
         initializeClient();
     }
 
     private void initializeClient() {
         try {
-            client = new MessengerClient("localhost", 3000);
+            client = new MessengerClient("localhost", MessengerServer.PORT_NUMBER);
             client.setupConnection();
             client.setController(controller);
             controller.setClient(client);
@@ -66,7 +66,7 @@ public class MessengerApp extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         client.closeConnection();
     }
 }
