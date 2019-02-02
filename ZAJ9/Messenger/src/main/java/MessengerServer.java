@@ -6,6 +6,7 @@ import java.util.*;
 
 public class MessengerServer {
 
+    public static final int PORT_NUMBER = 3000;
     private ServerSocket serverSocket;
     private final Map<Socket, PrintWriter> outputs = Collections.synchronizedMap(new HashMap<>());
 
@@ -18,7 +19,7 @@ public class MessengerServer {
     }
 
     public static void main(String[] args) {
-        new MessengerServer(3000).go();
+        new MessengerServer(PORT_NUMBER).go();
     }
 
     private void go() {

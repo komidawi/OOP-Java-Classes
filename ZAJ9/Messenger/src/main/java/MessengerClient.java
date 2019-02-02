@@ -11,8 +11,6 @@ public class MessengerClient {
     private PrintWriter socketWriter;
     private ChatWindowController controller;
 
-    // TODO: Exception handling
-
     public MessengerClient(String hostIP, int hostPort) {
         this.hostIP = hostIP;
         this.hostPort = hostPort;
@@ -50,6 +48,7 @@ public class MessengerClient {
         @Override
         public void run() {
             String message;
+
             try {
                 while ((message = socketReader.readLine()) != null) {
                     controller.readMessage(message);
